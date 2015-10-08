@@ -1,0 +1,11 @@
+build/
+pcre-8.37/
+tiff-4.0.6/
+
+*.log
+*.o
+*.gz*
+
+.depend
+checkit/checkit_tiff
+fixit/fixit_tiff
