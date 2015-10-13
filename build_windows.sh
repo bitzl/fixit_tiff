@@ -13,7 +13,7 @@ printf "\n### Building libtiff..."; pwd
 wget -nc ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.6.tar.gz
 tar xzf tiff-4.0.6.tar.gz
 cd tiff-4.0.6
-./configure
+./configure --host=i686-w64-mingw32 --disable-win32-io
 make -j 2
 cd ..
 
@@ -24,7 +24,7 @@ wget -nc ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.37.tar.gz
 tar xzf pcre-8.37.tar.gz
 cd pcre-8.37
 autoconf
-./configure --disable-shared --enable-static
+./configure --host=i686-w64-mingw32 --disable-shared --enable-static
 make
 cd ..
 
@@ -37,14 +37,14 @@ printf "\n"; pwd
 printf "\n### Building fixit_tiff..."; pwd
 
 cd fixit
-INC="-I ../tiff-4.0.6/libtiff/ -L ../tiff-4.0.6/libtiff/.libs/ -static" make
+CC="i686-w64-mingw32-gcc" INC="-I ../tiff-4.0.6/libtiff/ -L ../tiff-4.0.6/libtiff/.libs/ -static" make
 mv fixit_tiff ../build/static/
 cd ..
 
 printf "\n### Building checkit_tiff..."; pwd
 
 cd checkit
-SANITIZE="" INC="-DPCRE_STATIC -I../tiff-4.0.6/libtiff/ -I../pcre-8.37/" LIB="-fPIC -static -L../tiff-4.0.6/libtiff/.libs/ -L../pcre-8.37/.libs/"  make checkit_tiff
+SANITIZE="" CC="i686-w64-mingw32-gcc" INC="-DPCRE_STATIC -I../tiff-4.0.6/libtiff/ -I../pcre-8.37/" LIB="-fPIC -static -L../tiff-4.0.6/libtiff/.libs/ -L../pcre-8.37/.libs/"  make checkit_tiff
 cp checkit_tiff ../build/static
 cd ..
 
